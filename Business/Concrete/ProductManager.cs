@@ -17,33 +17,18 @@ namespace Business.Concrete
             _productDal = productDal;
         }
 
-        public void Add(Product product)
-        {
-            // Does user has permission to add product?
-            // etc. 
-
-            // If user meets all conditions, then finally:
-            _productDal.Add(product);
-        }
-
-        public void Delete(Product product)
-        {
-            _productDal.Delete(product);
-        }
-
         public List<Product> GetAll()
         {
             return _productDal.GetAll();
         }
 
-        public List<Product> GetAllByCategoryID(int categoryID)
+        public List<Product> GetByCategoryId(int categoryId)
         {
-            return _productDal.GetAllByCategoryID(categoryID);
+            return _productDal.GetAll(p => p.CategoryID == categoryId);
         }
-
-        public void Update(Product product)
+        public List<Product> GetByUnitPrice(decimal min, decimal max)
         {
-            _productDal.Update(product);
+            return _productDal.GetAll(p => p.UnitPrice <= max && p.UnitPrice >= min);
         }
     }
 }
